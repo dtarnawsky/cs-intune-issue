@@ -11,7 +11,7 @@ import { Camera, CameraResultType } from '@capacitor/camera';
 export class LoginPage {
   version = null;
   src: string;
-  
+
   constructor(private router: Router) { }
 
   async ionViewDidEnter() {
@@ -19,7 +19,7 @@ export class LoginPage {
   }
 
   async login() {
-    var authInfo = await IntuneMAM.acquireToken({
+    const authInfo = await IntuneMAM.acquireToken({
       scopes: ['https://graph.microsoft.com/.default'],
     });
 
@@ -30,12 +30,12 @@ export class LoginPage {
     });
 
     const user = await IntuneMAM.enrolledAccount();
-
+    console.log('user', user);
     if (user.upn) {
-      console.log("Got user, going home");
+      console.log('Got user, going home');
       this.router.navigate(['/home']);
     } else {
-      console.log("No user, logging in");
+      console.log('No user, logging in');
       this.router.navigate(['/login']);
     }
   }
